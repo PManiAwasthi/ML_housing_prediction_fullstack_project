@@ -1,9 +1,9 @@
 numpy
 Flask
+gunicorn
 sklearn
 pandas
-matplotlib
-dill
-evidently
-gunicorn
 PyYAML
+evidently
+dill
+matplotlib
