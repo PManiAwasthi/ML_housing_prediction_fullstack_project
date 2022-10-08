@@ -91,3 +91,13 @@ To delete a docker image
 ```
 docker image rm -f <inage_id>
 ```
+
+### Jupyter inside vscode
+```
+pip install ipykernel
+```
+
+### To use the setup file
+```
+python setup.py install
+```
