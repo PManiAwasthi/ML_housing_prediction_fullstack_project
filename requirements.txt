@@ -9,3 +9,4 @@ dill
 matplotlib
 six
 pathlib
+dill
