@@ -1,4 +1,5 @@
 from housing.component.model_evaluation import ModelEvaluation
+from housing.component.model_pusher import ModelPusher
 from housing.component.model_trainer import ModelTrainer
 from housing.config.configuration import Configuartion
 from housing.entity.config_entity import ModelEvaluationConfig
@@ -73,8 +74,12 @@ class Pipeline:
         except Exception as e:
             raise HousingException(e, sys) from e
 
-    def start_model_pusher(self):
-        pass
+    def start_model_pusher(self, model_evaluation_artifact: ModelEvaluation):
+        try:
+            model_pusher = ModelPusher(model_pusher_config=self.config.get_model_pusher_config(), model_evaluation_artifact=model_evaluation_artifact)
+            return model_pusher.initiate_model_pusher()
+        except Exception as e:
+            raise HousingException(e, sys) from e
 
     def run_pipeline(self):
         try:
@@ -93,9 +98,11 @@ class Pipeline:
                                                                     model_trainer_artifact=model_trainer_artifact)
 
             if model_evaluation_artifact.is_model_accepted:
-                logging.info(f'Model evaluated and accepted')
+                model_pusher_artifact = self.start_model_pusher(model_evaluation_artifact=model_evaluation_artifact)
+                logging.info(f'Model pusher artifact: {model_pusher_artifact}')
             else:
                 logging.info("Trained model rejected.")
+            logging.info("Pipeline completed.")
             
 
 
