@@ -4,7 +4,9 @@ from housing.logger import logging
 def main():
     try:
         pipeline = Pipeline()
-        pipeline.run_pipeline()
+        pipeline.start()
+        logging.info("main function execution completed.")
+        # pipeline.run_pipeline()
         # data_validation_config = Configuartion().get_data_validation_config()
         # print(data_validation_config)
     except Exception as e:
